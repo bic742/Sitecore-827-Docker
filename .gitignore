@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/build/8.2.7/sitecore-assets/Sitecore.PowerShell.Extensions-6.0.scwdp.zip
+/build/8.2.7/sitecore-assets/Sitecore 8.2 rev. 180406_cm.scwdp.zip
+/build/8.2.7/sitecore-assets/Sitecore 8.2 rev. 180406_cd.scwdp.zip

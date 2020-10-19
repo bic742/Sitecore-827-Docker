@@ -1,0 +1,14 @@
+{
+  "tags": [
+    {
+      "tag": "sitecore-xm-spe-sqldev:8.2.7-windowsservercore-${windowsservercore_version}",
+      "build-options": [
+        "--memory 4GB",
+        "--build-arg BASE_IMAGE=sitecore-xm-sqldev:8.2.7-windowsservercore-${windowsservercore_version}",
+        "--build-arg ASSETS_IMAGE=sitecore-assets:8.2.7-nanoserver-${nanoserver_version}",
+        "--build-arg ASSETS_USE_WDP='C:\\packages\\Sitecore.PowerShell.Extensions-6.0.scwdp.zip'"
+      ]
+    }
+  ],
+  "sources": []
+}
