@@ -1,0 +1,10 @@
+cd /d %~dp0
+
+docker build .\8.2.7\sitecore-assets -t sitecore-assets:8.2.7-nanoserver-1809 --build-arg BUILD_IMAGE=mcr.microsoft.com/windows/servercore:ltsc2019 --build-arg BASE_IMAGE=mcr.microsoft.com/windows/nanoserver:1809
+
+docker build .\8.2.x\sitecore-xm -t sitecore-xm-cm:8.2.7-windowsservercore-ltsc2019 --build-arg BASE_IMAGE=mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc2019 --build-arg ASSETS_IMAGE=sitecore-assets:8.2.7-nanoserver-1809 --build-arg ASSETS_USE_WDP="C:\\packages\\Sitecore 8.2_cm.scwdp.zip" --build-arg SC_ROLE_CONFIG_DIRECTORY=\\config\\cm
+docker build .\8.x.x\sitecore-xm-solr -t sitecore-xm-solr:8.2.7-nanoserver-1809 --build-arg BUILD_IMAGE=mcr.microsoft.com/windows/servercore:ltsc2019 --build-arg BASE_IMAGE=sitecore-openjdk:8-nanoserver-1809
+docker build .\8.x.x\sitecore-xm-sqldev -t sitecore-xm-sqldev:8.2.7-windowsservercore-ltsc2019 --build-arg BASE_IMAGE=mssql-developer:2017-windowsservercore-ltsc2019 --build-arg ASSETS_IMAGE=sitecore-assets:8.2.7-nanoserver-1809 --build-arg ASSETS_USE_WDP="C:\\packages\\Sitecore 8.2_cm.scwdp.zip"
+
+docker build .\8.x.x\sitecore-spe -t sitecore-xm-spe-cm:8.2.7-windowsservercore-ltsc2019 --build-arg BASE_IMAGE=mssql-developer:2017-windowsservercore-ltsc2019 --build-arg BASE_IMAGE=sitecore-xm-cm:8.2.7-windowsservercore-ltsc2019 --build-arg ASSETS_IMAGE=sitecore-assets:8.2.7-nanoserver-1809 --build-arg ASSETS_USE_WDP="C:\\packages\\Sitecore.PowerShell.Extensions-6.0.scwdp.zip"
+docker build .\8.x.x\sitecore-spe-sqldev -t sitecore-xm-spe-sqldev:8.2.7-windowsservercore-ltsc2019 --memory 4GB --build-arg BASE_IMAGE=sitecore-xm-sqldev:8.2.7-windowsservercore-ltsc2019 --build-arg ASSETS_IMAGE=sitecore-assets:8.2.7-nanoserver-1809 --build-arg ASSETS_USE_WDP="C:\\packages\\Sitecore.PowerShell.Extensions-6.0.scwdp.zip"
