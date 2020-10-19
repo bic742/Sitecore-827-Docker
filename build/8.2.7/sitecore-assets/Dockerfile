@@ -32,9 +32,13 @@ RUN Expand-Archive -Path 'C:\\downloads\\filebeat.zip' -DestinationPath 'C:\\ins
     Rename-Item -Path (Get-Item -Path 'C:\\install\\tools\\bin\\filebeat*windows*').FullName -NewName "filebeat"; `
     Remove-Item -Path 'C:\\downloads\\filebeat.zip' -Force;
 
+# extract assets, skip wdps, move already extracted wdps
 RUN New-Item -Path 'C:\\packages' -ItemType 'Directory' -Force | Out-Null; `
+    $zips = Get-ChildItem -Path 'C:\\downloads\\*.zip' -Exclude @('*.scwdp.zip', '*win-x64*'); `
+    $zips | ForEach-Object { Expand-Archive -Path $_.FullName -DestinationPath 'C:\\packages' -Force; }; `
+    $zips | ForEach-Object { Remove-Item -Path $_.FullName -Force; }; `
 	$zips = Get-ChildItem -Path 'C:\\downloads\\*.zip' -Exclude '*Configuration files*.zip'; `
-    $zips | ForEach-Object { Move-Item -Path $_.FullName -Destination 'C:\\packages\\'; }; `
+    $zips | ForEach-Object { Move-Item -Path $_.FullName -Destination 'C:\\packages'; }; `
     $zips = Get-ChildItem -Path 'C:\\packages\\*.scwdp.zip' | Rename-Item -NewName {$_.Name -replace '.rev\..(\d*)|(r[0-9]+.[0-9]+)'};
 
 # move installers
